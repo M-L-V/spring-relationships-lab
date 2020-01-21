@@ -1,6 +1,8 @@
 package com.codeclan.example.Springrelationshipslab.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 
@@ -22,11 +24,17 @@ public class Employee {
     @Column(name = "employee_num")
     private int employeeNum;
 
-    public Employee(String firstName, String lastName, int employeeNum) {
+    @JsonIgnoreProperties("employees")
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    public Employee(String firstName, String lastName, int employeeNum, Department department) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNum = employeeNum;
+        this.department = department;
     }
 
     public Employee(){
@@ -63,5 +71,13 @@ public class Employee {
 
     public void setEmployeeNum(int employeeNum) {
         this.employeeNum = employeeNum;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
