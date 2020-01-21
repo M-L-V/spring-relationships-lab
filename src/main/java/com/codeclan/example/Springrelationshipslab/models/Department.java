@@ -41,7 +41,7 @@ public class Department {
     }
 
     public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+        this.employees = new ArrayList<>(employees);
     }
 
     public String getName() {

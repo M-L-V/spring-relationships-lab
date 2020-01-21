@@ -4,6 +4,7 @@ package com.codeclan.example.Springrelationshipslab.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +29,28 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+
+    @JsonIgnoreProperties(value = "employees")
+    @ManyToMany
+    @JoinTable(
+            name = "employees_projects",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "employee_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "project_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+
+    private List<Project> projects;
 
     public Employee(String firstName, String lastName, int employeeNum, Department department) {
 
